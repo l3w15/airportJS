@@ -20,7 +20,13 @@ describe("Airport", function() {
 
   it("allows planes to land", function() {
     airport.land(plane)
-    expect(airport.hangar()).toContain(plane);
+    expect(airport.hangar()).toEqual([plane]);
   });
+
+  it("allows a plane to take off and confirms take off", function() {
+    airport.land(plane)
+    airport.takeOff(plane)
+    expect(airport.hangar()).toEqual([]);
+  })
 
 });
