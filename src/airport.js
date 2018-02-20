@@ -14,11 +14,32 @@ Airport.prototype = {
   },
 
   land: function(plane) {
-    if (this._hangar.length < this._capacity) {
-      this._hangar.push(plane);
-    } else {
-      throw 'Airport is at full capacity';
+    this._landingChecks(plane);
+    this._hangar.push(plane);
+  },
+
+  _isFull: function() {
+    return this._hangar.length >= this._capacity
+  },
+
+  _landingChecks: function(plane) {
+    if (this._isFull()) {
+    throw "Airport is at full capacity";
     }
+
+    if (this._isAtAirport(plane)) {
+      throw "That plane has already landed";
+    }
+  },
+
+  _takeOffChecks: function(plane) {
+    if (!this._isAtAirport(plane)) {
+      throw "That plane is not at this airport";
+    }
+  },
+
+  _isAtAirport: function(plane) {
+    return this._hangar.includes(plane);
   },
 
   hangar: function() {
@@ -26,30 +47,9 @@ Airport.prototype = {
   },
 
   takeOff: function(plane) {
+    this._takeOffChecks(plane);
     var index = this._hangar.indexOf(plane);
     this._hangar.splice(index, 1);
     return "Plane " + plane + " has taken off";
   },
 };
-
-//
-// capacity = function() {
-//   return this._capacity
-// };
-//
-// Airport.prototype.setCapacity = function(size) {
-//   this._capacity = size
-// };
-//
-// Airport.prototype.land = function(plane) {
-//   this._hangar.push(plane)
-// };
-//
-// Airport.prototype.hangar = function() {
-//   return this._hangar
-// };
-//
-// Airport.prototype.takeOff = function(plane) {
-//   var index = this._hangar.indexOf(plane);
-//   this._hangar.splice(index, 1)
-// };

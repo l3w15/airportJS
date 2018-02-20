@@ -31,10 +31,21 @@ describe("Airport", function() {
 
   it("will not allow a plane to land if capacity has been reached", function(){
     for (i = 0; i < 50; i++) {
-       airport.land(plane);
+       airport.land(new Plane);
     }
     expect(function() { airport.land(plane) })
-    .toThrow('Airport is at full capacity');
+    .toThrow("Airport is at full capacity");
+  });
+
+  it("will not allow a plane to land if it has already landed", function(){
+    airport.land(plane)
+    expect(function() { airport.land(plane) })
+    .toThrow("That plane has already landed");
+  });
+
+  it("will not allow a plane to take off unless it has landed at the airport", function(){
+    expect(function() { airport.takeOff(plane) })
+    .toThrow("That plane is not at this airport");
   });
 
 });
