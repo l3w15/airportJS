@@ -25,8 +25,16 @@ describe("Airport", function() {
 
   it("allows a plane to take off and confirms take off", function() {
     airport.land(plane)
-    airport.takeOff(plane)
+    expect(airport.takeOff(plane)).toEqual("Plane " + plane + " has taken off");
     expect(airport.hangar()).toEqual([]);
-  })
+  });
+
+  it("will not allow a plane to land if capacity has been reached", function(){
+    for (i = 0; i < 50; i++) {
+       airport.land(plane);
+    }
+    expect(function() { airport.land(plane) })
+    .toThrow('Airport is at full capacity');
+  });
 
 });
