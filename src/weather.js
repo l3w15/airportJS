@@ -1,11 +1,10 @@
 function Weather() {
-  this._weatherOptions = ["sunny", "sunny", "sunny", "stormy"];
+  this._STORM_CHANCES = 0.7;
 };
 
 Weather.prototype = {
-  randomWeather: function() {
-    var rand = Math.floor(Math.random() * this._weatherOptions.length);
-    return this._weatherOptions[rand];
+  isStormy: function() {
+    return (Math.random() > this._STORM_CHANCES)
   },
 
 }
